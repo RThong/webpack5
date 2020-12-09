@@ -49,4 +49,11 @@ module.exports = {
   ],
   mode: "development",
   //   mode: "production",
+
+  devServer: {
+    contentBase: resolve(__dirname, "build"),
+    // 启动gzip压缩
+    compress: true,
+    port: 3000,
+  },
 };
