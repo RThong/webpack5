@@ -55,5 +55,6 @@ module.exports = {
     // 启动gzip压缩
     compress: true,
     port: 3000,
+    open: true,
   },
 };
