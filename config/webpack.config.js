@@ -3,6 +3,9 @@ const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// 指定node环境变量   让postcss对package.json中browserslist的不同环境做处理
+// process.env.NODE_ENV = "development";
+
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -28,6 +31,21 @@ module.exports = {
           // "style-loader",
           MiniCssExtractPlugin.loader,
           "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    "postcss-preset-env",
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            },
+          },
           "less-loader",
         ],
       },
