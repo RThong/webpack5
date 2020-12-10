@@ -1,6 +1,7 @@
 const { resolve } = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -13,11 +14,22 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          // 创建style标签，将样式引入
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          // 将css文件整合到js中
+          "css-loader",
+        ],
       },
       {
         test: /\.less$/,
-        use: ["style-loader", "css-loader", "less-loader"],
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "less-loader",
+        ],
       },
       {
         test: /\.(jpg|png|gif)$/,
@@ -45,6 +57,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "css/index.css",
     }),
   ],
   mode: "development",
