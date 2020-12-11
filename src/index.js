@@ -1,22 +1,11 @@
 // import "./index.css";
-import './index.less';
-import './iconfont.css';
+import './styles/index.less';
+import './styles/iconfont.css';
+import print from './print';
+
 const a = 12;
-const b = 1;
+const b = 123;
 
-const aaa = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('!!!!!!!!!!!!!!!!!');
-      resolve();
-    }, 3000);
-  });
-
-const main = async () => {
-  await aaa();
-  console.log('@@@@@@@@@@@');
-};
-
-main();
+print();
 
 console.log(a + b);

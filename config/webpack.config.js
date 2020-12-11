@@ -32,7 +32,13 @@ module.exports = {
         use: [
           // 创建style标签，将样式引入
           // "style-loader",
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // 打包后build中css资源地址需要加上
+              publicPath: '../',
+            },
+          },
           // 将css文件整合到js中
           'css-loader',
         ],
@@ -41,7 +47,12 @@ module.exports = {
         test: /\.less$/,
         use: [
           // "style-loader",
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
+          },
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -66,7 +77,8 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 8 * 1024,
-          name: '[hash:10].[ext]',
+          name: '[name].[contenthash:8].[ext]',
+          outputPath: 'assets/images',
         },
       },
       {
@@ -76,10 +88,11 @@ module.exports = {
       },
       {
         test: /\.(eot|ttf|svg|woff|woff2)$/,
-        // 处理html中的img图片
+        // 处理图标
         loader: 'file-loader',
         options: {
-          name: '[hash:10].[ext]',
+          name: '[name].[contenthash:8].[ext]',
+          outputPath: 'assets/icons',
         },
       },
 
@@ -96,13 +109,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       // 压缩html
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-      },
+      // minify: {
+      //   collapseWhitespace: true,
+      //   removeComments: true,
+      // },
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/index.css',
+      filename: 'styles/index.css',
     }),
     new OptimizeCssAssetsWebpackPlugin(),
     new EslintWebpackPlugin({
@@ -135,5 +148,6 @@ module.exports = {
     compress: true,
     port: 3000,
     open: true,
+    hot: true,
   },
 };
