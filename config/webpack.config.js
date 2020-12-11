@@ -9,6 +9,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 指定node环境变量   让postcss对package.json中browserslist的不同环境做处理
 // process.env.NODE_ENV = "development";
 
+// "browserslist": {
+//   "development": [
+//     "last 1 chrome version"
+//   ],
+//   "production": [
+//     ">0.01%"
+//   ]
+// }
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -73,6 +82,14 @@ module.exports = {
           name: '[hash:10].[ext]',
         },
       },
+
+      {
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
   plugins: [
@@ -105,7 +122,7 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
   mode: 'development',
-  //   mode: "production",
+  // mode: 'production',
 
   devServer: {
     contentBase: resolve(__dirname, 'build'),
