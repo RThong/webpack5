@@ -21,13 +21,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   // webpack v5中dev-server bug https://stackoverflow.com/questions/65034496/how-can-i-get-hot-reloading-hmr-running-with-webpack-5/65035442#65035442
   target: 'web',
-
   entry: './src/index.js',
   output: {
     filename: 'build.bundle.js',
     publicPath: './',
     path: resolve(__dirname, '../build'),
   },
+  // 开发环境用eval-source-map  生产环境用source-map
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
