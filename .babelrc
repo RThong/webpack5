@@ -1,11 +1,13 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage", // 按需引用
-        "corejs": 3 //core-js 版本
-      }
-    ]
-  ]
+  // "presets": [
+  //   [
+  //     "@babel/preset-env",
+  //     {
+  //       "useBuiltIns": "usage", // 按需引用
+  //       "corejs": 3 //core-js 版本
+  //     }
+  //   ]
+  // ]
+
+  "presets": ["@babel/preset-react", "@babel/preset-typescript"]
 }
