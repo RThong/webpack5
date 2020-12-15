@@ -5,9 +5,6 @@
 
 # production
 /dist
-/.vscode
-
-
 /build
 
 # Windows thumbnail cache files
@@ -35,7 +32,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-.vscode/*
+./*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -168,7 +165,8 @@ dist
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
