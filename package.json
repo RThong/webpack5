@@ -1,15 +1,18 @@
 {
-  "name": "webpack-project",
+  "name": "hong-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack v5 react + typescript project environment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
     "dev": "webpack serve --hot --config ./config/webpack.config.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "hong",
+    "url": "https://github.com/RThong",
+    "email": "403216075@qq.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
