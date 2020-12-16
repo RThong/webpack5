@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const { SERVER_HOST, SERVER_PORT } = require('./constants');
-console.log('!!!!!!', SERVER_HOST);
+
 module.exports = merge(common, {
   mode: 'development',
   target: 'web',
