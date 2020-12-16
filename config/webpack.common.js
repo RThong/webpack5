@@ -7,7 +7,10 @@ const getCssLoaders = (importLoaders) => [
   {
     loader: 'css-loader',
     options: {
-      modules: false,
+      modules: {
+        // css modules 设置class名称
+        localIdentName: isDev ? '[name]__[local]' : '[local]_[hash:base64:8]',
+      },
       sourceMap: isDev,
       importLoaders,
     },
@@ -16,6 +19,7 @@ const getCssLoaders = (importLoaders) => [
     loader: 'postcss-loader',
     options: {
       postcssOptions: {
+        ident: 'postcss',
         plugins: [
           [
             // 修复一些和 flex 布局相关的 bug
