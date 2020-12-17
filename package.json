@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js",
+    "lint": "npm run lint-eslint && npm run lint-stylelint",
+    "lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src",
+    "lint-stylelint": "stylelint --config .stylelintrc.js src/**/*.{less,css,scss}"
   },
   "author": {
     "name": "hong",
@@ -29,7 +32,11 @@
     "css-loader": "^5.0.1",
     "eslint": "^7.15.0",
     "eslint-config-alloy": "^3.8.2",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-unicorn": "^24.0.0",
     "eslint-webpack-plugin": "^2.4.1",
     "file-loader": "^6.2.0",
     "html-loader": "^1.3.2",
@@ -43,6 +50,12 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.2.1",
     "style-loader": "^2.0.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-order": "^4.1.0",
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
     "webpack": "^5.10.2",

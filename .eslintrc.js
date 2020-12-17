@@ -1,6 +1,20 @@
 module.exports = {
-  extends: ["alloy", "alloy/react", "alloy/typescript"],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  extends: [
+    'prettier',
+    'alloy',
+    'alloy/react',
+    'alloy/typescript',
+    'plugin:unicorn/recommended',
+    'plugin:promise/recommended',
+    'plugin:react-hooks/recommended',
+  ],
   // extends: 'airbnb-base',
+  plugins: ['unicorn', 'promise'],
   env: {
     // 你的环境变量（包含多个预定义的全局变量）
     //
@@ -17,5 +31,14 @@ module.exports = {
   },
   rules: {
     // 自定义你的规则
+    'unicorn/filename-case': [
+      'error',
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+        },
+      },
+    ],
   },
 };

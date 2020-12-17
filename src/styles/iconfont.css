@@ -12,13 +12,14 @@
 }
 
 .iconfont {
-  font-family: 'iconfont' !important;
   font-size: 16px;
+  /* stylelint-disable-next-line */
+  font-family: 'iconfont' !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-Dog:before {
+.icon-Dog::before {
   content: '\eaac';
 }
