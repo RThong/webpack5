@@ -2,9 +2,15 @@ const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const { SERVER_HOST, SERVER_PORT } = require('./constants');
 
+/**
+ * 设置target: 'web'  启动dev-server刷新
+ * 设置hot: true 启动热更新
+ * module.hot.accept();  设置js局部更新
+ *
+ */
 module.exports = merge(common, {
   mode: 'development',
-  target: 'web',
+  target: 'web', // webpack v5  dev server更新
   devtool: 'eval-source-map',
   devServer: {
     host: SERVER_HOST, // 指定 host，不设置的话默认是 localhost
