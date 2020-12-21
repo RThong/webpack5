@@ -22,6 +22,7 @@ function App() {
   return (
     <div>
       <div className={style.img1} />
+      <div className={style.box} />
       <button onClick={handleClick}>click me</button>
     </div>
   );

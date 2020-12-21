@@ -17,24 +17,37 @@ const getCssLoaders = (importLoaders) => [
   },
   {
     loader: 'postcss-loader',
+    // 和webpack v4配置有所不同  https://webpack.js.org/loaders/postcss-loader/#config
     options: {
       postcssOptions: {
         ident: 'postcss',
         plugins: [
+          'postcss-flexbugs-fixes',
           [
-            // 修复一些和 flex 布局相关的 bug
-            require('postcss-flexbugs-fixes'),
-            require('postcss-preset-env')({
+            'postcss-preset-env',
+            {
               autoprefixer: {
                 grid: true,
                 flexbox: 'no-2009',
               },
               stage: 3,
-            }),
-            require('postcss-normalize'),
+            },
+
+            // // 修复一些和 flex 布局相关的 bug
+            // require('postcss-flexbugs-fixes'),
+            // require('postcss-preset-env')({
+            //   autoprefixer: {
+            //     grid: true,
+            //     flexbox: 'no-2009',
+            //   },
+            //   stage: 3,
+            // }),
+            // require('postcss-normalize'),
           ],
+          'postcss-normalize',
         ],
       },
+      sourceMap: isDev,
     },
   },
 ];
