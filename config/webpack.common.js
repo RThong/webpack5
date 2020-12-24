@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const { isDev, PROJECT_PATH } = require('./constants');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
 const getCssLoaders = (importLoaders) => [
   'style-loader',
@@ -154,7 +155,7 @@ module.exports = {
             useShortDoctype: true,
           },
     }),
-
+    // 拷贝公共静态资源
     new CopyPlugin({
       patterns: [
         {
@@ -164,6 +165,12 @@ module.exports = {
           toType: 'dir',
         },
       ],
+    }),
+
+    // 显示编译进度
+    new WebpackBar({
+      name: isDev ? '正在启动' : '正在打包',
+      color: '#238636',
     }),
   ],
 };
