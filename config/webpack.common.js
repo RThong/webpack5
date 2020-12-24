@@ -3,6 +3,7 @@ const { isDev, PROJECT_PATH } = require('./constants');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const getCssLoaders = (importLoaders) => [
   'style-loader',
@@ -171,6 +172,13 @@ module.exports = {
     new WebpackBar({
       name: isDev ? '正在启动' : '正在打包',
       color: '#238636',
+    }),
+
+    // 编译时的 Typescirpt 类型检查
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        configFile: resolve(PROJECT_PATH, './tsconfig.json'),
+      },
     }),
   ],
 };

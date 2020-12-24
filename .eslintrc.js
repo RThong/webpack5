@@ -9,7 +9,6 @@ module.exports = {
     'alloy',
     'alloy/react',
     'alloy/typescript',
-    'plugin:unicorn/recommended',
     'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
   ],
@@ -31,14 +30,5 @@ module.exports = {
   },
   rules: {
     // 自定义你的规则
-    'unicorn/filename-case': [
-      'error',
-      {
-        cases: {
-          camelCase: true,
-          pascalCase: true,
-        },
-      },
-    ],
   },
 };

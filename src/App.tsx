@@ -21,7 +21,13 @@ const handleClick = async () => {
   console.log(res);
 };
 
-function App() {
+// interface IProperties {
+//   data: any;
+// }
+
+const App: React.FC = (props) => {
+  // const { data, wrongs } = properties;
+
   return (
     <div>
       <div className={style.img1} />
@@ -31,6 +37,6 @@ function App() {
       <Login />
     </div>
   );
-}
+};
 
 export default App;
