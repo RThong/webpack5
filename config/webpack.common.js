@@ -135,6 +135,7 @@ module.exports = {
     ],
   },
   plugins: [
+    // https://github.com/webpack/webpack/issues/11997#issuecomment-727843458
     new HtmlWebpackPlugin({
       template: resolve(PROJECT_PATH, './public/index.html'),
       filename: 'index.html',
@@ -160,10 +161,13 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          context: resolve(PROJECT_PATH, './public'),
-          from: '*',
+          from: resolve(PROJECT_PATH, './public'),
           to: resolve(PROJECT_PATH, './dist'),
           toType: 'dir',
+          // 将html copy进去会报错: Multiple assets emit different content to the same filename index.html
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
         },
       ],
     }),
@@ -181,4 +185,10 @@ module.exports = {
       },
     }),
   ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };

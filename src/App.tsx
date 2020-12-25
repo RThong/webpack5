@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import style from './styles/index.less';
-import img from './assets/images/product.jpg';
 import User from './pages/User';
 import Login from './pages/Login';
 
