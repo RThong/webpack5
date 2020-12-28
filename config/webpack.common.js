@@ -4,9 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const getCssLoaders = (importLoaders) => [
-  'style-loader',
+  isDev
+    ? 'style-loader'
+    : {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          // 打包后build中css资源地址需要加上
+          publicPath: '../',
+        },
+      },
+  // 'style-loader',
+
   {
     loader: 'css-loader',
     options: {
@@ -184,7 +195,15 @@ module.exports = {
         configFile: resolve(PROJECT_PATH, './tsconfig.json'),
       },
     }),
-  ],
+
+    // 单独打包css文件
+    !isDev &&
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css',
+        ignoreOrder: false,
+      }),
+  ].filter(Boolean),
 
   optimization: {
     splitChunks: {
