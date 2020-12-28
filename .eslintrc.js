@@ -9,11 +9,11 @@ module.exports = {
     'alloy',
     'alloy/react',
     'alloy/typescript',
-    'plugin:promise/recommended',
+    // 'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
   ],
   // extends: 'airbnb-base',
-  plugins: ['promise'],
+  // plugins: ['promise'],
   env: {
     // 你的环境变量（包含多个预定义的全局变量）
     //
