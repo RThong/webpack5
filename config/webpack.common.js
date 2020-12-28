@@ -5,8 +5,9 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const glob = require('glob');
 
-const getCssLoaders = (importLoaders) => [
+const getCssLoaders = (importLoaders, modules = true) => [
   isDev
     ? 'style-loader'
     : {
@@ -21,10 +22,12 @@ const getCssLoaders = (importLoaders) => [
   {
     loader: 'css-loader',
     options: {
-      modules: {
-        // css modules 设置class名称
-        localIdentName: isDev ? '[name]__[local]' : '[local]_[hash:base64:8]',
-      },
+      modules: modules
+        ? {
+            // css modules 设置class名称
+            localIdentName: isDev ? '[name]__[local]' : '[local]_[hash:base64:8]',
+          }
+        : false,
       sourceMap: isDev,
       importLoaders,
     },
@@ -59,6 +62,26 @@ const getCssLoaders = (importLoaders) => [
             // require('postcss-normalize'),
           ],
           'postcss-normalize',
+          [
+            '@fullhuman/postcss-purgecss',
+            {
+              // You'll want to modify this glob if you're using TypeScript
+              content: glob.sync('src/**/*.{tsx, ts}', { nodir: true }),
+              safelist: ['html', 'body'],
+
+              // extractors: [
+              //   {
+              //     extractor: class {
+              //       static extract(content) {
+              //         // See a note on this in the #addenum section below
+              //         return content.match(/\w+/g) || [];
+              //       }
+              //     },
+              //     extensions: ['ts', 'tsx'],
+              //   },
+              // ],
+            },
+          ],
         ],
       },
       sourceMap: isDev,
@@ -76,6 +99,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
+    alias: {
+      '@': resolve(PROJECT_PATH, './src'),
+    },
   },
   module: {
     rules: [
@@ -87,7 +113,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: getCssLoaders(1),
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: getCssLoaders(1, false),
       },
       {
         test: /\.less$/,
@@ -101,6 +133,7 @@ module.exports = {
           },
         ],
       },
+
       // {
       //   test: /\.scss$/,
       //   use: [

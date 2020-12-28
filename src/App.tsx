@@ -1,7 +1,9 @@
 import React from 'react';
-import style from './styles/index.less';
 import User from './pages/User';
 import Login from './pages/Login';
+import { Button } from 'antd';
+
+import style from './styles/index.less';
 
 const getData = () => {
   return new Promise((resolve) => {
@@ -31,7 +33,9 @@ const App: React.FC = (props) => {
     <div>
       <div className={style.img1} />
       <div className={style.box} />
-      <button onClick={handleClick}>click me</button>
+      <Button type="primary" onClick={handleClick}>
+        click me
+      </Button>
       <User />
       <Login />
     </div>
