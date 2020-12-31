@@ -7,87 +7,88 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const glob = require('glob');
 
-const getCssLoaders = (importLoaders, modules = true) => [
-  isDev
-    ? 'style-loader'
-    : {
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-          // 打包后build中css资源地址需要加上
-          publicPath: '../',
+const getCssLoaders = (importLoaders, modules = true) =>
+  [
+    isDev
+      ? 'style-loader'
+      : {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            // 打包后build中css资源地址需要加上
+            publicPath: '../',
+          },
         },
-      },
-  // 'style-loader',
+    // 'style-loader',
 
-  {
-    loader: 'css-loader',
-    options: {
-      modules: modules
-        ? {
-            // css modules 设置class名称
-            localIdentName: isDev ? '[name]__[local]' : '[local]_[hash:base64:8]',
-          }
-        : false,
-      sourceMap: isDev,
-      importLoaders,
+    {
+      loader: 'css-loader',
+      options: {
+        modules: modules
+          ? {
+              // css modules 设置class名称
+              localIdentName: isDev ? '[name]__[local]' : '[local]_[hash:base64:8]',
+            }
+          : false,
+        sourceMap: isDev,
+        importLoaders,
+      },
     },
-  },
-  {
-    loader: 'postcss-loader',
-    // 和webpack v4配置有所不同  https://webpack.js.org/loaders/postcss-loader/#config
-    options: {
-      postcssOptions: {
-        ident: 'postcss',
-        plugins: [
-          'postcss-flexbugs-fixes',
-          [
-            'postcss-preset-env',
-            {
-              autoprefixer: {
-                grid: true,
-                flexbox: 'no-2009',
+    modules && {
+      loader: 'postcss-loader',
+      // 和webpack v4配置有所不同  https://webpack.js.org/loaders/postcss-loader/#config
+      options: {
+        postcssOptions: {
+          ident: 'postcss',
+          plugins: [
+            'postcss-flexbugs-fixes',
+            [
+              'postcss-preset-env',
+              {
+                autoprefixer: {
+                  grid: true,
+                  flexbox: 'no-2009',
+                },
+                stage: 3,
               },
-              stage: 3,
-            },
 
-            // // 修复一些和 flex 布局相关的 bug
-            // require('postcss-flexbugs-fixes'),
-            // require('postcss-preset-env')({
-            //   autoprefixer: {
-            //     grid: true,
-            //     flexbox: 'no-2009',
-            //   },
-            //   stage: 3,
-            // }),
-            // require('postcss-normalize'),
-          ],
-          'postcss-normalize',
-          [
-            '@fullhuman/postcss-purgecss',
-            {
-              // You'll want to modify this glob if you're using TypeScript
-              content: glob.sync('src/**/*.{tsx, ts}', { nodir: true }),
-              safelist: ['html', 'body'],
-
-              // extractors: [
-              //   {
-              //     extractor: class {
-              //       static extract(content) {
-              //         // See a note on this in the #addenum section below
-              //         return content.match(/\w+/g) || [];
-              //       }
-              //     },
-              //     extensions: ['ts', 'tsx'],
+              // // 修复一些和 flex 布局相关的 bug
+              // require('postcss-flexbugs-fixes'),
+              // require('postcss-preset-env')({
+              //   autoprefixer: {
+              //     grid: true,
+              //     flexbox: 'no-2009',
               //   },
-              // ],
-            },
+              //   stage: 3,
+              // }),
+              // require('postcss-normalize'),
+            ],
+            'postcss-normalize',
+            [
+              '@fullhuman/postcss-purgecss',
+              {
+                // You'll want to modify this glob if you're using TypeScript
+                content: glob.sync('src/**/*.{tsx, ts}', { nodir: true }),
+                safelist: ['html', 'body'],
+
+                // extractors: [
+                //   {
+                //     extractor: class {
+                //       static extract(content) {
+                //         // See a note on this in the #addenum section below
+                //         return content.match(/\w+/g) || [];
+                //       }
+                //     },
+                //     extensions: ['ts', 'tsx'],
+                //   },
+                // ],
+              },
+            ],
           ],
-        ],
+        },
+        sourceMap: isDev,
       },
-      sourceMap: isDev,
     },
-  },
-];
+  ].filter(Boolean);
 
 module.exports = {
   entry: {
@@ -116,6 +117,8 @@ module.exports = {
         exclude: /node_modules/,
         use: getCssLoaders(1),
       },
+
+      // 处理antd等第三方库的样式文件
       {
         test: /\.css$/,
         include: /node_modules/,
