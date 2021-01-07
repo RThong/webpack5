@@ -1,7 +1,6 @@
 import React from 'react';
 import User from './pages/User';
 import Login from './pages/Login';
-import { Button } from 'antd';
 
 import style from './styles/index.less';
 
@@ -33,9 +32,7 @@ const App: React.FC = (props) => {
     <div>
       <div className={style.img1} />
       <div className={style.box} />
-      <Button type="primary" onClick={handleClick}>
-        click me
-      </Button>
+
       <User />
       <Login />
     </div>

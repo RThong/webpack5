@@ -10,23 +10,17 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  // 动态引入antd的样式
   "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "libraryDirectory": "es",
-        "style": "css"
-      }
-    ]
+    // 确保helper辅助方法都是引用@babel/runtime
+    "@babel/plugin-transform-runtime"
+    // antd动态加载
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "antd",
+    //     "libraryDirectory": "es",
+    //     "style": "css"
+    //   }
+    // ]
   ]
-  // "plugins": [
-  //   [
-  //     "@babel/plugin-transform-runtime"
-  //     // {
-  //     //   "corejs": 3
-  //     // }
-  //   ]
-  // ]
 }
