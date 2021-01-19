@@ -5,6 +5,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const glob = require('glob');
 
 const getCssLoaders = (importLoaders, modules = true) =>
@@ -242,6 +244,18 @@ module.exports = {
   ].filter(Boolean),
 
   optimization: {
+    minimize: !isDev,
+    minimizer: [
+      !isDev &&
+        new TerserPlugin({
+          // 去除注释
+          extractComments: false,
+          // 去除console.log
+          terserOptions: {
+            compress: { pure_funcs: ['console.log'] },
+          },
+        }),
+    ].filter(Boolean),
     splitChunks: {
       chunks: 'all',
     },
