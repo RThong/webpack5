@@ -6,7 +6,8 @@ const WebpackBar = require('webpackbar');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BannerPlugin } = require('webpack');
 const glob = require('glob');
 
 const getCssLoaders = (importLoaders, modules = true) =>
@@ -241,11 +242,17 @@ module.exports = {
         chunkFilename: 'css/[name].[contenthash:8].css',
         ignoreOrder: false,
       }),
+
+    new BannerPlugin({
+      raw: true,
+      banner: '/** @preserve hong-cli */',
+    }),
   ].filter(Boolean),
 
   optimization: {
     minimize: !isDev,
     minimizer: [
+      !isDev && new OptimizeCssAssetsPlugin(),
       !isDev &&
         new TerserPlugin({
           // 去除注释
