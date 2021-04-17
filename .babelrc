@@ -5,7 +5,7 @@
       {
         "useBuiltIns": "usage", // 按需引用
         "corejs": 3, //core-js 版本
-        "module": false
+        "modules": false
       }
     ],
     "@babel/preset-react",
